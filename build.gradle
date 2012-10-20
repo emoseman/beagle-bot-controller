@@ -13,6 +13,10 @@ repositories {
   mavenCentral()
 }
 
+task push(dependsOn: 'compileJava') << {
+  "rsync -va build/classes/main/org root@192.168.0.177:/home/root/sandbox/".execute();
+}
+
 dependencies {
   compile group: 'com.google.code.gson', name: 'gson', version: '2.2.2'
   compile group: 'commons-collections', name: 'commons-collections', version: '3.2'

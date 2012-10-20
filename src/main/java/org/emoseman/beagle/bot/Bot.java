@@ -9,14 +9,16 @@ public class Bot
     GPIO gpio = new GPIO();
     
     while (true) {
-      gpio.setLed1(0);
-      gpio.setLed2(255);
-      gpio.setLed3(0);
-      Thread.sleep(400);
-      gpio.setLed1(255);
-      gpio.setLed2(0);
-      gpio.setLed3(255);
-      Thread.sleep(400);
+      gpio.setLed0("255");
+      gpio.setLed1("0");
+      gpio.setLed2("255");
+      gpio.setLed3("0");
+      Thread.sleep(1);
+      gpio.setLed0("0");
+      gpio.setLed1("255");
+      gpio.setLed2("0");
+      gpio.setLed3("255");
+      Thread.sleep(1);
     }
   }
 }
