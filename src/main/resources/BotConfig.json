@@ -1,0 +1,52 @@
+{
+  "led": {
+    "0": {
+      "brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/brightness",
+      "max_brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/max_brightness",
+      "trigger":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/trigger",
+      "delay_off":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/delay_off",
+      "delay_on":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/delay_on",
+      "inverted":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/inverted",
+    },
+    "1": {
+      "brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr1/brightness",
+      "max_brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr1/max_brightness",
+      "trigger":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr1/trigger",
+      "delay_off":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr1/delay_off",
+      "delay_on":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr1/delay_on",
+      "inverted":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr1/inverted",
+    },
+    "2": {
+      "brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr2/brightness",
+      "max_brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr2/max_brightness",
+      "trigger":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr2/trigger",
+      "delay_off":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr2/delay_off",
+      "delay_on":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr2/delay_on",
+      "inverted":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr2/inverted",
+    },
+    "3": {
+      "brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr3/brightness",
+      "max_brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr3/max_brightness",
+      "trigger":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr3/trigger",
+      "delay_off":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr3/delay_off",
+      "delay_on":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr3/delay_on",
+      "inverted":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr3/inverted",
+    }
+  },
+  "rtc": {
+    "max_user_freq": "/sys/devices/platform/omap_rtc/rtc/rtc0/max_user_freq",
+    "since_epoch": "/sys/devices/platform/omap_rtc/rtc/rtc0/since_epoch",
+    "date" : "/sys/devices/platform/omap_rtc/rtc/rtc0/date",
+    "hctosys" : "/sys/devices/platform/omap_rtc/rtc/rtc0/hctosys",
+  },
+  "analog":{
+    "1":"path":"/sys/devices/platform/omap/tsc/ain1",
+    "2":"path":"/sys/devices/platform/omap/tsc/ain2",
+    "3":"path":"/sys/devices/platform/omap/tsc/ain3",
+    "4":"path":"/sys/devices/platform/omap/tsc/ain4",
+    "5":"path":"/sys/devices/platform/omap/tsc/ain5",
+    "6":"path":"/sys/devices/platform/omap/tsc/ain6",
+    "7":"path":"/sys/devices/platform/omap/tsc/ain7",
+    "8":"path":"/sys/devices/platform/omap/tsc/ain8" 
+  }
+}
