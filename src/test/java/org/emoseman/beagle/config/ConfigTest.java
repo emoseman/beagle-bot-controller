@@ -2,9 +2,12 @@ package org.emoseman.beagle.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
+import com.google.gson.internal.StringMap;
 
 public class ConfigTest
 {
@@ -14,11 +17,11 @@ public class ConfigTest
   public void test()
     throws Exception
   {
-    Config config = new Config();
+    StringMap leds = Config.getLeds();
+    StringMap paths = (StringMap) leds.get("1");
+    assertNotNull(leds);
+    assertTrue(leds.size() > 0);
 
-    assertNotNull(config);
-    log.debug("config: " + config.toString());
-
-    assertEquals(config.getPin("LED0"), "/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/brightness");
+    assertEquals(leds.get("inverted"), "/sys/devices/platform/leds-gpio/leds/beaglebone::usr1/inverted");
   }
 }
