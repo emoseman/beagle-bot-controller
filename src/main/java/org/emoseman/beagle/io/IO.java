@@ -1,41 +1,70 @@
 package org.emoseman.beagle.io;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.HashMap;
+import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
+import org.apache.log4j.Logger;
 import org.emoseman.beagle.config.Config;
 
 public abstract class IO
 {
+  private static final Logger log = Logger.getLogger(IO.class);
+
   protected final Config config = new Config();
 
-  protected final HashMap<String, FileOutputStream> _outStream = new HashMap<String, FileOutputStream>();
-
-  protected String readString(final String path) throws IOException
+  protected int readInteger(final String path)
+    throws IOException
   {
-    BufferedInputStream in = new BufferedInputStream(StreamCache.getInputStream(path));
-    StringBuilder sb = new StringBuilder();
+    DataInputStream in = new DataInputStream(StreamCache.getInputStream(path));
+    // todo you may have to open and re-open fds
+    return in.readInt();
+  }
 
-    byte[] buffer = new byte[128];
+  protected String readString(final String fileName)
+    throws IOException
+  {
+    Path path = FileSystems.getDefault().getPath(fileName);
+    return new String(Files.readAllBytes(path));
+  }
 
-    int available = in.available();
-    int readSize = 0;
-    int offset = 0;
-    while (available > 0) {
-      if (available >= 128)
-        readSize = 128;
-      else
-        readSize = available;
+  protected String readString2(final String path)
+    throws IOException
+  {
+    InputStream in = StreamCache.getInputStream(path);
 
-      offset += in.read(buffer, offset, readSize);
+    int[] buffer = new int[1024];
+    int read = 0;
+    int idx = 0;
+
+    while ((read = in.read()) != -1)
+    {
+      buffer[idx] = read;
+      idx++;
     }
-    return sb.toString();
+
+    for (int i = 0; i < idx; i++)
+    {
+      System.out.printf("[%d] '%c' (%04X) ", i, (char) buffer[i], buffer[i]);
+    }
+
+    return ""; // new String(buffer);
   }
 
   protected void writeString(final String path, final String value)
+    throws IOException
+  {
+    Path sysPath = Paths.get(path);
+    Files.write(sysPath, value.getBytes(), StandardOpenOption.WRITE);
+  }
+
+  protected void writeString2(final String path, final String value)
     throws IOException
   {
     BufferedOutputStream out = new BufferedOutputStream(StreamCache.getOutputStream(path));

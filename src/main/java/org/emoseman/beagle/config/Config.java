@@ -34,10 +34,16 @@ public class Config
 
   private static void load()
   {
-    ClassLoader cl = Config.class.getClass().getClassLoader();
+    log.info("Loading configuration file...");
+
+    ClassLoader cl = Config.class.getClassLoader();
+    if (cl == null)
+    {
+      throw new RuntimeException("Failed to find classloader!");
+    }
     URL url = cl.getResource(_fileName);
 
-    log.info("url: " + url.toString());
+    log.debug("url: " + url.toString());
 
     if (url != null)
     {
@@ -48,17 +54,17 @@ public class Config
         _analog = (StringMap<String>) tmp.get("analog");
         _leds = (StringMap<String>) tmp.get("leds");
 
-        log.debug("analog: " + _analog.toString());
-        log.debug("leds: " + _leds.toString());
+        log.debug("analog: " + ((_analog == null) ? "null" : _analog.toString()));
+        log.debug("leds: " + ((_leds == null) ? "null" : _leds.toString()));
       }
       catch (Exception e)
       {
+        log.error(e);
         throw new RuntimeException(e);
       }
     }
     Config.loaded = true;
   }
-
 
   @Override
   public String toString()

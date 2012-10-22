@@ -1,5 +1,5 @@
 {
-  "led": {
+  "leds": {
     "0": {
       "brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/brightness",
       "max_brightness":"/sys/devices/platform/leds-gpio/leds/beaglebone::usr0/max_brightness",

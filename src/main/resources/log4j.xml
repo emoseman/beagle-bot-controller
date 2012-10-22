@@ -31,10 +31,15 @@
   </appender>
 
   <logger name="org.emoseman.beagle.config" additivity="false">
+    <level value="info" />
+    <appender-ref ref="SW_ROLLING_FILE" />
+  </logger>
+  
+  <logger name="org.emoseman.beagle.io" additivity="false">
     <level value="debug" />
     <appender-ref ref="SW_ROLLING_FILE" />
-    <!-- <appender-ref ref="STDOUT" /> -->
   </logger>
+  
 
   <root>
     <level value="INFO" />

@@ -21,7 +21,7 @@ repositories {
 task push(dependsOn: 'assemble') << {
   def destination = "root@192.168.0.177:/bot/";
   
-  "scp build/classes/main/org $destination".execute();
+  "rsync -a build/classes/main/org $destination".execute();
   "scp build/resources/main/BotConfig.json $destination".execute();
   "scp build/resources/main/log4j.xml $destination".execute();
   
