@@ -40,7 +40,6 @@
     <appender-ref ref="SW_ROLLING_FILE" />
   </logger>
   
-
   <root>
     <level value="INFO" />
     <appender-ref ref="STDERR" />

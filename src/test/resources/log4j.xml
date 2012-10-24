@@ -14,6 +14,7 @@
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern" value="[%d{ISO8601}] %-5p [%c] %m %n" />
     </layout>
+    
     <filter class="org.apache.log4j.varia.LevelRangeFilter">
       <param name="LevelMin" value="ERROR" />
       <param name="LevelMax" value="FATAL" />
@@ -31,15 +32,27 @@
     </layout>
   </appender>
 
-  <logger name="org.emoseman.beagle.config" additivity="false">
+  <logger name="org.emoseman.beagle.config" additivity="true">
     <level value="debug" />
     <appender-ref ref="SW_ROLLING_FILE" />
     <appender-ref ref="STDOUT" />
   </logger>
 
+  <logger name="org.emoseman.beagle.io" additivity="true">
+    <level value="debug" />
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="SW_ROLLING_FILE" />
+  </logger>
+  
+  <logger name="org.emoseman.beagle.io.LEDTest" additivity="true">
+    <level value="debug" />
+    <appender-ref ref="STDOUT" />
+  </logger>
+  
+
   <root>
     <level value="INFO" />
-    <appender-ref ref="STDERR" />
+    <appender-ref ref="STDOUT" />
   </root>
 
 

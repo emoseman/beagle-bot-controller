@@ -1,7 +1,10 @@
 package org.emoseman.beagle.io;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.emoseman.beagle.config.Config;
 
 import com.google.gson.internal.StringMap;
@@ -9,13 +12,15 @@ import com.google.gson.internal.StringMap;
 public class LED
   extends IO
 {
+  private static final Logger log = Logger.getLogger(LED.class);
+
   private static final String BRIGHTNESS = "brightness";
   private static final String DELAY_OFF = "delay_off";
   private static final String DELAY_ON = "delay_on";
   private static final String TRIGGER = "trigger";
 
   private final int _number;
-  private LEDTrigger _trigger;
+  private LEDTrigger _trigger = LEDTrigger.none;
   private final StringMap<String> _paths;
 
   @SuppressWarnings("unchecked")
@@ -23,6 +28,15 @@ public class LED
   {
     _number = no;
     _paths = (StringMap<String>) Config.getLeds().get(new Integer(_number).toString());
+    try
+    {
+      updateTrigger();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+      throw new RuntimeException("Failed to update trigger value for LED" + no);
+    }
   }
 
   public final String getTrigger()
@@ -57,41 +71,21 @@ public class LED
   public final void setTrigger(final String trigger)
     throws IOException
   {
-    switch (trigger)
-    {
-      case "backlight":
-        _trigger = LEDTrigger.backlight;
-      case "default-on":
-        _trigger = LEDTrigger.defaulton;
-      case "none":
-        _trigger = LEDTrigger.none;
-      case "mmc0":
-        _trigger = LEDTrigger.mmc0;
-      case "timer":
-        _trigger = LEDTrigger.timer;
-      case "heartbeat":
-        _trigger = LEDTrigger.heartbeat;
-      case "gpio":
-        _trigger = LEDTrigger.gpio;
-    }
-    writeString(_paths.get(TRIGGER), trigger);
+    log.debug("setting trigger to " + trigger);
+    _trigger = LEDTrigger.fromString(trigger);
+    writeString(_paths.get(TRIGGER), _trigger.toString());
   }
 
   public final void updateTrigger()
     throws IOException
   {
-    String value = readString(_paths.get(TRIGGER));
-    String[] parts = value.split(" ");
-    for (String p : parts)
-    {
-      if (p.startsWith("["))
-      {
-        value = p.replaceAll("(\\[\\])", "");
-        break;
-      }
-    }
-    if (value != null)
-      setTrigger(value);
+    final String value = readString(_paths.get(TRIGGER));
+
+    Pattern p = Pattern.compile(".*\\[(\\w+-?o?n?)\\].*");
+    Matcher m = p.matcher(value);
+
+    if (m.matches())
+      _trigger = LEDTrigger.fromString(m.group(1));
   }
 
 }

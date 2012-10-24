@@ -37,20 +37,7 @@ public class Bot
     log.info("Starting endless loop...");
     while (true)
     {
-      led0.setBrightness(0);
-      led1.setBrightness(255);
-      led2.setBrightness(0);
-      led3.setBrightness(255);
-      Thread.sleep(100);
-
-      led0.setBrightness(0);
-      led1.setBrightness(255);
-      led2.setBrightness(0);
-      led3.setBrightness(255);
-      Thread.sleep(100);
-
-      System.out.println("1:" + a1.read() + "2:" + a2.read() + "3:" + a3.read() + "4:" + a4.read() + "5:" + a5.read()
-        + "6:" + a6.read() + "7:" + a7.read() + "8:" + a8.read());
+      Thread.sleep(1000000l);
     }
   }
 }

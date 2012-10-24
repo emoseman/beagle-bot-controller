@@ -21,19 +21,29 @@ repositories {
 task push(dependsOn: 'assemble') << {
   def destination = "root@192.168.0.177:/bot/";
   
-  "rsync -a build/classes/main/org $destination".execute();
-  "scp build/resources/main/BotConfig.json $destination".execute();
-  "scp build/resources/main/log4j.xml $destination".execute();
+  println "Syncing classes..."
+  def proc = "rsync -a build/classes/main/org $destination".execute();
+  proc.waitFor();
   
-  configurations.compile.each { File file ->
-//    println "${file.path}"
-    "scp ${file.path} $destination".execute();
-  }
+  println "Pushing bot config..."
+  proc = "rsync build/resources/main/BotConfig.json $destination".execute();
+  proc.waitFor();
   
-  configurations.testCompile.each { File file ->
-//    println "${file.path}"
-    "scp ${file.path} $destination".execute();
-  }
+  println "Pushing logging config..."
+  proc = "rsync build/resources/main/log4j.xml $destination".execute();
+  proc.waitFor();
+  
+//  println "Pushing compile libraries..."
+//  configurations.compile.each { File file ->
+//    proc = "rsync ${file.path} $destination".execute();
+//    proc.waitFor();
+//  }
+//  
+//  println "Pushing test compile libraries..."
+//  configurations.testCompile.each { File file ->
+//    proc = "rsync ${file.path} $destination".execute();
+//    proc.waitFor();
+//  }
 }
 
 dependencies {
@@ -47,6 +57,8 @@ dependencies {
 
 test {
   systemProperties 'property': 'value'
+  exclude 'src/main/resources/log4j.xml'
+  testLogging.showStandardStreams = true
 }
 
 uploadArchives {

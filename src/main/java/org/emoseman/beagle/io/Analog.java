@@ -19,6 +19,6 @@ public class Analog
   public final int read()
     throws IOException
   {
-    return readInteger(_path);
+    return Integer.parseInt(readString(_path));
   }
 }
