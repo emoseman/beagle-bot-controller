@@ -15,6 +15,7 @@ public class Config
   private static boolean loaded = false;
   private static StringMap<String> _leds;
   private static StringMap<String> _analog;
+  private static StringMap<String> _gpio;
 
   public static String getAnalogPath(final int pin)
   {
@@ -22,6 +23,14 @@ public class Config
       return "";
 
     return _analog.get(new Integer(pin).toString());
+  }
+
+  public static String getGPIOPath(final int pin)
+  {
+    if (!loaded)
+      load();
+
+    return _gpio.get(new Integer(pin));
   }
 
   public static final StringMap getLeds()
@@ -53,6 +62,7 @@ public class Config
         StringMap tmp = gson.fromJson(new FileReader(url.getFile()), StringMap.class);
         _analog = (StringMap<String>) tmp.get("analog");
         _leds = (StringMap<String>) tmp.get("leds");
+        _gpio = (StringMap<String>) tmp.get("gpio");
 
         log.debug("analog: " + ((_analog == null) ? "null" : _analog.toString()));
         log.debug("leds: " + ((_leds == null) ? "null" : _leds.toString()));
@@ -65,6 +75,7 @@ public class Config
     }
     Config.loaded = true;
   }
+
 
   @Override
   public String toString()
