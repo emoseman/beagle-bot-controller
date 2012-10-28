@@ -5,6 +5,8 @@ import org.emoseman.beagle.io.Analog;
 import org.emoseman.beagle.io.AnalogFactory;
 import org.emoseman.beagle.io.LED;
 import org.emoseman.beagle.io.LEDFactory;
+import org.emoseman.beagle.io.LEDTrigger;
+import org.emoseman.utils.StatsArray;
 
 public class Bot
 {
@@ -29,15 +31,32 @@ public class Bot
     Analog a7 = AnalogFactory.getAnalog(7);
     Analog a8 = AnalogFactory.getAnalog(8);
 
-    led0.setTrigger("none");
-    led1.setTrigger("none");
-    led2.setTrigger("none");
-    led3.setTrigger("none");
+    led0.setTrigger(LEDTrigger.mmc0);
+    led1.setTrigger(LEDTrigger.heartbeat);
+    led2.setTrigger(LEDTrigger.mmc0);
+    led3.setTrigger(LEDTrigger.heartbeat);
+
+    // GPIO gpio0 = GPIOFactory.getGPIO(10);
+    // // gpio0.activatePin();
+    // gpio0.setPinDirection(PINDirection.out);
+    // gpio0.setValueHigh();
+
+    StatsArray gyro = new StatsArray(30);
 
     log.info("Starting endless loop...");
+    int counter = 0;
     while (true)
     {
-      Thread.sleep(1000000l);
+      gyro.addValue(a1.read());
+      if (counter == 20)
+      {
+        System.out.println("Gyro: " + gyro.toString());
+        counter = 0;
+      }
+
+      Thread.sleep(10);
+      counter++;
     }
+
   }
 }

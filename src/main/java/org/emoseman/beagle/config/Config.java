@@ -25,12 +25,12 @@ public class Config
     return _analog.get(new Integer(pin).toString());
   }
 
-  public static String getGPIOPath(final int pin)
+  public static String getGPIOPath(final String s)
   {
     if (!loaded)
       load();
 
-    return _gpio.get(new Integer(pin));
+    return _gpio.get(s);
   }
 
   public static final StringMap getLeds()

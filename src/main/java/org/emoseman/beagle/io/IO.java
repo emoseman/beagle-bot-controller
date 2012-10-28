@@ -1,6 +1,5 @@
 package org.emoseman.beagle.io;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
@@ -15,6 +14,7 @@ import org.emoseman.beagle.config.Config;
 
 public abstract class IO
 {
+  @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(IO.class);
 
   protected final Config config = new Config();
@@ -23,25 +23,29 @@ public abstract class IO
     throws IOException
   {
     Path path = FileSystems.getDefault().getPath(fileName);
-
     List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
-
     return lines.get(0).replace('\0', ' ').trim();
+  }
+
+  protected Integer readInteger(final String fileName)
+    throws IOException
+  {
+    Path path = FileSystems.getDefault().getPath(fileName);
+    List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
+    return Integer.parseInt(lines.get(0).replace('\0', ' ').trim());
   }
 
   protected void writeString(final String path, final String value)
     throws IOException
   {
-    log.debug("writing " + value + " to: " + path);
     Path sysPath = Paths.get(path);
     Files.write(sysPath, value.getBytes(), StandardOpenOption.WRITE);
   }
 
-  protected void writeString2(final String path, final String value)
+  protected void writeInteger(final String path, final Integer value)
     throws IOException
   {
-    BufferedOutputStream out = new BufferedOutputStream(StreamCache.getOutputStream(path));
-    out.write(path.getBytes());
-    StreamCache.closeOutputStream(path);
+    Path sysPath = Paths.get(path);
+    Files.write(sysPath, String.valueOf(value).getBytes(), StandardOpenOption.WRITE);
   }
 }

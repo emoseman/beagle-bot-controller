@@ -39,6 +39,9 @@
     "date" : "/sys/devices/platform/omap_rtc/rtc/rtc0/date",
     "hctosys" : "/sys/devices/platform/omap_rtc/rtc/rtc0/hctosys"
   },
+  "gpio":{
+    "base_path":"/sys/class/gpio"
+  },
   "analog":{
     "1":"/sys/devices/platform/omap/tsc/ain1",
     "2":"/sys/devices/platform/omap/tsc/ain2",

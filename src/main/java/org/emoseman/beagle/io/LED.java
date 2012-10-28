@@ -68,11 +68,11 @@ public class LED
     writeString(_paths.get(DELAY_ON), new Integer(value).toString());
   }
 
-  public final void setTrigger(final String trigger)
+  public final void setTrigger(final LEDTrigger trigger)
     throws IOException
   {
     log.debug("setting trigger to " + trigger);
-    _trigger = LEDTrigger.fromString(trigger);
+    _trigger = trigger;
     writeString(_paths.get(TRIGGER), _trigger.toString());
   }
 
