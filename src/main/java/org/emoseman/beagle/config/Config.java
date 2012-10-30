@@ -16,6 +16,7 @@ public class Config
   private static StringMap<String> _leds;
   private static StringMap<String> _analog;
   private static StringMap<String> _gpio;
+  private static StringMap<StringMap<String>> _i2c;
 
   public static String getAnalogPath(final int pin)
   {
@@ -31,6 +32,11 @@ public class Config
       load();
 
     return _gpio.get(s);
+  }
+
+  public static StringMap<String> getI2C(final String identifier)
+  {
+    return _i2c.get(identifier);
   }
 
   public static final StringMap getLeds()
@@ -63,6 +69,7 @@ public class Config
         _analog = (StringMap<String>) tmp.get("analog");
         _leds = (StringMap<String>) tmp.get("leds");
         _gpio = (StringMap<String>) tmp.get("gpio");
+        _i2c = (StringMap<StringMap<String>>) tmp.get("i2c");
 
         log.debug("analog: " + ((_analog == null) ? "null" : _analog.toString()));
         log.debug("leds: " + ((_leds == null) ? "null" : _leds.toString()));
@@ -76,7 +83,6 @@ public class Config
     Config.loaded = true;
   }
 
-
   @Override
   public String toString()
   {
@@ -88,5 +94,6 @@ public class Config
 
     return sb.toString();
   }
+
 
 }

@@ -51,5 +51,11 @@
     "6":"/sys/devices/platform/omap/tsc/ain6",
     "7":"/sys/devices/platform/omap/tsc/ain7",
     "8":"/sys/devices/platform/omap/tsc/ain8" 
+  },
+  "i2c":{
+    "hmc5883l": {
+      "path":"/dev/i2c-3",
+      "address":"0x1e"
+    } 
   }
 }
