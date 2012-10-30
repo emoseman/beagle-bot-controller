@@ -5,14 +5,14 @@ import java.util.LinkedList;
 
 public class StatsArray
 {
-  private float _sum = 0.0f;
-  private float _max = 0.0f;
-  private float _min = Float.MAX_VALUE;
-  private float _median = 0.0f;
+  protected float _sum = 0.0f;
+  protected float _max = 0.0f;
+  protected float _min = Float.MAX_VALUE;
+  protected float _median = 0.0f;
 
-  private final int _itemCount;
+  protected final int _itemCount;
 
-  private final LinkedList<Float> _values = new LinkedList<>();
+  protected final LinkedList<Float> _values = new LinkedList<>();
 
   public StatsArray(final int itemCount)
   {

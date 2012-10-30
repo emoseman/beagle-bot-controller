@@ -12,8 +12,8 @@ public class GPIO
   extends IO
 {
   private final int _pinNumber;
-  private int _value = 0;
   private PINDirection _pinDirection;
+  private int _value = 0;
   private int _edge = 0;
   private int _activeLow = 0;
   private int _uEvent = 0;
@@ -99,9 +99,15 @@ public class GPIO
     return _activeLow;
   }
 
-  public final int uEvent()
+  public final int getUEvent()
   {
     return _uEvent;
+  }
+
+  @Override
+  public Object read()
+  {
+    return _value;
   }
 
   public final void setPinDirection(final PINDirection _pinDirection)
@@ -122,6 +128,16 @@ public class GPIO
     throws IOException
   {
     this._value = 0;
+    writePinValue();
+  }
+
+  public final void setValue(final int value)
+    throws IOException
+  {
+    if (value > 1 || value < 0)
+      throw new RuntimeException("Invalid value, 0 or 1 acceptable.");
+
+    _value = value;
     writePinValue();
   }
 
@@ -187,11 +203,12 @@ public class GPIO
 
   private void writeActiveLow()
   {
-
+    throw new RuntimeException("Method not implemented!");
   }
 
   private void writeEdge()
   {
-
+    throw new RuntimeException("Method not implemented!");
   }
+
 }

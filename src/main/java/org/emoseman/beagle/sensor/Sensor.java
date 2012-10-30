@@ -1,5 +1,7 @@
 package org.emoseman.beagle.sensor;
 
+import java.io.IOException;
+
 import org.emoseman.beagle.io.IO;
 import org.emoseman.utils.StatsArray;
 
@@ -23,6 +25,12 @@ public abstract class Sensor
   }
 
   public abstract void calibrate();
+
+  public void update()
+    throws IOException
+  {
+    addValue((Float) _io.read());
+  }
 
   public float getValue()
   {

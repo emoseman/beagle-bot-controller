@@ -88,4 +88,18 @@ public class LED
       _trigger = LEDTrigger.fromString(m.group(1));
   }
 
+  @Override
+  public Object read()
+  {
+    try
+    {
+      return getTrigger();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+  }
+
 }

@@ -19,7 +19,10 @@ public abstract class IO
 
   protected final Config config = new Config();
 
-  protected String readString(final String fileName)
+  public abstract Object read()
+    throws IOException;
+
+  protected final String readString(final String fileName)
     throws IOException
   {
     Path path = FileSystems.getDefault().getPath(fileName);
@@ -27,7 +30,7 @@ public abstract class IO
     return lines.get(0).replace('\0', ' ').trim();
   }
 
-  protected Integer readInteger(final String fileName)
+  protected final Integer readInteger(final String fileName)
     throws IOException
   {
     Path path = FileSystems.getDefault().getPath(fileName);
@@ -35,14 +38,14 @@ public abstract class IO
     return Integer.parseInt(lines.get(0).replace('\0', ' ').trim());
   }
 
-  protected void writeString(final String path, final String value)
+  protected final void writeString(final String path, final String value)
     throws IOException
   {
     Path sysPath = Paths.get(path);
     Files.write(sysPath, value.getBytes(), StandardOpenOption.WRITE);
   }
 
-  protected void writeInteger(final String path, final Integer value)
+  protected final void writeInteger(final String path, final Integer value)
     throws IOException
   {
     Path sysPath = Paths.get(path);

@@ -16,9 +16,10 @@ public class Analog
     _path = Config.getAnalogPath(_pin);
   }
 
-  public final int read()
+  @Override
+  public Object read()
     throws IOException
   {
-    return Integer.parseInt(readString(_path));
+    return readString(_path);
   }
 }

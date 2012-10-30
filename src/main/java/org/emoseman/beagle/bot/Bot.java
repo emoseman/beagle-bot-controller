@@ -41,16 +41,19 @@ public class Bot
     // gpio0.setPinDirection(PINDirection.out);
     // gpio0.setValueHigh();
 
-    StatsArray gyro = new StatsArray(30);
+    StatsArray accelZ = new StatsArray(30);
+    StatsArray accelX = new StatsArray(30);
 
     log.info("Starting endless loop...");
     int counter = 0;
     while (true)
     {
-      gyro.addValue(a1.read());
+      accelX.addValue(Float.valueOf((String) a4.read()));
+      accelZ.addValue(Float.valueOf((String) a2.read()));
       if (counter == 20)
       {
-        System.out.println("Gyro: " + gyro.toString());
+        System.out.println("Accel X: " + accelX.toString());
+        System.out.println("Accel Z: " + accelZ.toString());
         counter = 0;
       }
 
