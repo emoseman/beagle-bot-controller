@@ -1,26 +1,25 @@
 package org.emoseman.beagle.io.i2c;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+import org.apache.log4j.Logger;
 import org.emoseman.beagle.config.Config;
+import org.emoseman.utils.I2CUtils;
 
 import com.google.gson.internal.StringMap;
 
 public abstract class I2C
 {
+  private static final Logger log = Logger.getLogger(I2C.class);
+
   private String _path;
-  private byte _address;
+  private int _address;
   private Path _sysPath;
 
   public I2C()
   {
-    String identifier = this.getClass().getName().toLowerCase();
+    String identifier = this.getClass().getSimpleName().toLowerCase();
     StringMap<String> tmp = Config.getI2C(identifier);
     if (tmp == null || tmp.size() == 0)
       throw new RuntimeException("Failed to find i2c configuration for " + identifier);
@@ -41,31 +40,13 @@ public abstract class I2C
 
   public abstract void calibrate();
 
-  public void write(final byte register, final byte value)
+  public int write(final int register, final int value)
   {
-    try (DataOutputStream out = new DataOutputStream(new FileOutputStream(_sysPath.toString()));)
-    {
-      out.writeByte(_address);
-      out.writeByte(register);
-      out.writeByte(value);
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+    return I2CUtils.writeByteToI2CDevice(_sysPath.toString(), _address, register, value);
   }
 
-  public byte read(final byte register)
+  public int read(final int register)
   {
-    try (DataInputStream in = new DataInputStream(new FileInputStream(_sysPath.toString()));)
-    {
-      return in.readByte();
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+    return I2CUtils.readByteFromI2CDevice(_sysPath.toString(), _address, register);
   }
 }
