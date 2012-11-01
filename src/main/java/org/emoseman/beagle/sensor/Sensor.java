@@ -29,7 +29,7 @@ public abstract class Sensor
   public void update()
     throws IOException
   {
-    addValue((Float) _io.read());
+    addValue(Float.valueOf((String) _io.read()));
   }
 
   public float getValue()
