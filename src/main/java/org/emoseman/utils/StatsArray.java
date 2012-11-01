@@ -6,8 +6,10 @@ import java.util.LinkedList;
 public class StatsArray
 {
   protected float _sum = 0.0f;
-  protected float _max = 0.0f;
-  protected float _min = Float.MAX_VALUE;
+  protected float _currentMax = 0.0f;
+  protected float _currentMin = Float.MAX_VALUE;
+  protected float _absoluteMax = 0.0f;
+  protected float _absoluteMin = Float.MAX_VALUE;
   protected float _median = 0.0f;
 
   protected final int _itemCount;
@@ -24,11 +26,11 @@ public class StatsArray
 
   public final void addValue(final float f)
   {
-    if (_max < f)
-      _max = new Float(f);
+    if (_absoluteMax < f)
+      _absoluteMax = new Float(f);
 
-    if (_min > f)
-      _min = new Float(f);
+    if (_absoluteMin > f)
+      _absoluteMin = new Float(f);
 
     _values.addFirst(f);
     _sum += f;
@@ -42,14 +44,14 @@ public class StatsArray
     return _sum / _values.size();
   }
 
-  public final float getMax()
+  public final float getCurrentMax()
   {
-    _max = 0.0f;
+    _currentMax = 0.0f;
     for (Float f : _values)
-      if (f > _max)
-        _max = f;
+      if (f > _currentMax)
+        _currentMax = f;
 
-    return _max;
+    return _currentMax;
   }
 
   public final float getMedian()
@@ -63,14 +65,14 @@ public class StatsArray
     return tmpArray[tmpArray.length / 2];
   }
 
-  public final float getMin()
+  public final float getCurrentMin()
   {
-    _min = Float.MAX_VALUE;
+    _currentMin = Float.MAX_VALUE;
     for (Float f : _values)
-      if (_min > f)
-        _min = f;
+      if (_currentMin > f)
+        _currentMin = f;
 
-    return _min;
+    return _currentMin;
   }
 
   public final float getSum()
@@ -81,8 +83,8 @@ public class StatsArray
   @Override
   public String toString()
   {
-    _min = Float.MAX_VALUE;
-    _max = 0.0f;
+    _currentMin = Float.MAX_VALUE;
+    _currentMax = 0.0f;
 
     Float[] tmpArray = new Float[_values.size()];
     for (int i = 0; i < _values.size(); i++)
@@ -90,16 +92,16 @@ public class StatsArray
 
     for (Float f : tmpArray)
     {
-      if (f > _max)
-        _max = f;
+      if (f > _currentMax)
+        _currentMax = f;
 
-      if (f < _min)
-        _min = f;
+      if (f < _currentMin)
+        _currentMin = f;
     }
 
     _median = tmpArray[tmpArray.length / 2];
 
-    return String.format("Min: %02f Max: %02f Avg: %02f Median: %02f Sum: %02f Last: %02f", _min, _max, getAverage(),
-      getMedian(), _sum, _values.getLast());
+    return String.format("Curr/Abs Min: %02f/%02f Curr/Abs Max: %02f/%02f Avg: %02f Median: %02f Sum: %02f Last: %02f",
+      _currentMin, _absoluteMin, _currentMax, _absoluteMax, getAverage(), getMedian(), _sum, _values.getLast());
   }
 }
