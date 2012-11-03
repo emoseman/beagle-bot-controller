@@ -1,0 +1,18 @@
+{
+  "folders" : [
+    {
+      "path" : ".",
+      "folder_exclude_patterns" : ["bin",".settings"],
+      "file_exclude_patterns" : [".classpath"]
+    }
+  ],
+  "settings" : {
+    "tab_size" : "2"
+  },
+  "build_systems" : [
+    {
+      "nabme" : "Push",
+      "cmd" : [ "/usr/local/bin/gradle", "push" ]
+    }
+  ]
+}
