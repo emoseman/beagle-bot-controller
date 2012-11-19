@@ -1,13 +1,11 @@
 package org.emoseman.beagle.io.i2c;
 
+import com.google.gson.internal.StringMap;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-
 import org.apache.log4j.Logger;
 import org.emoseman.beagle.config.Config;
 import org.emoseman.utils.I2CUtils;
-
-import com.google.gson.internal.StringMap;
 
 public abstract class I2C
 {
@@ -40,13 +38,23 @@ public abstract class I2C
 
   public abstract void calibrate();
 
-  public int write(final int register, final int value)
+  public int writeByte(final int register, final int value)
   {
     return I2CUtils.writeByteToI2CDevice(_sysPath.toString(), _address, register, value);
   }
 
-  public int read(final int register)
+  public int writeWord(final int register, final int value)
+  {
+    return I2CUtils.writeWordToI2CDevice(_sysPath.toString(), _address, register, value);
+  }
+
+  public int readByte(final int register)
   {
     return I2CUtils.readByteFromI2CDevice(_sysPath.toString(), _address, register);
+  }
+
+  public int readWord(final int register)
+  {
+    return I2CUtils.readWordFromI2CDevice(_sysPath.toString(), _address, register);
   }
 }

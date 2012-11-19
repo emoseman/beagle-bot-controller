@@ -39,8 +39,10 @@ public class I2CUtils
   }
 
   public static native byte readByteFromI2CDevice(String path, int address, int register_address);
+  public static native short readWordFromI2CDevice(String path, int address, int register_address);
 
   public static native byte writeByteToI2CDevice(String path, int address, int register_address, int data);
+  public static native short writeWordToI2CDevice(String path, int address, int register_address, int data);
 }
 
 

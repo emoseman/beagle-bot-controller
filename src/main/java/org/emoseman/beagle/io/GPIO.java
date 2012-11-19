@@ -5,9 +5,12 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-
 import org.emoseman.beagle.config.Config;
 
+/**
+ *
+ * @author emoseman
+ */
 public class GPIO
   extends IO
 {
@@ -32,15 +35,15 @@ public class GPIO
 
   public GPIO(final int no)
   {
-    _pinNumber = no;
-    _basePath = Config.getGPIOPath("base_path") + "/gpio" + no;
-    _exportPath = _basePath + "/export";
-    _unexportPath = _basePath + "/unexport";
+    _pinNumber     = no;
+    _basePath      = Config.getGPIOPath("base_path") + "/gpio" + no;
+    _exportPath    = _basePath + "/export";
+    _unexportPath  = _basePath + "/unexport";
     _directionPath = _basePath + "/direction";
-    _valuePath = _basePath + "/value";
-    _edgePath = _basePath + "/edge";
+    _valuePath     = _basePath + "/value";
+    _edgePath      = _basePath + "/edge";
     _activeLowPath = _basePath + "/active_low";
-    _uEventPath = _basePath + "/uevent";
+    _uEventPath    = _basePath + "/uevent";
 
     _path = FileSystems.getDefault().getPath(_basePath);
 

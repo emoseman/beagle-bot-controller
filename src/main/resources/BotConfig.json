@@ -50,12 +50,28 @@
     "5":"/sys/devices/platform/omap/tsc/ain5",
     "6":"/sys/devices/platform/omap/tsc/ain6",
     "7":"/sys/devices/platform/omap/tsc/ain7",
-    "8":"/sys/devices/platform/omap/tsc/ain8" 
+    "8":"/sys/devices/platform/omap/tsc/ain8"
   },
   "i2c":{
     "hmc5883l": {
       "path":"/dev/i2c-3",
       "address":"30"
-    } 
+    },
+    "ads1115a": {
+      "path":"/dev/i2c-3",
+      "address":"48"
+    },
+    "ads1115b": {
+      "path":"/dev/i2c-3",
+      "address":"49"
+    },
+    "ads1115c": {
+      "path":"/dev/i2c-3",
+      "address":"4A"
+    },
+    "ads1115d": {
+      "path":"/dev/i2c-3",
+      "address":"4B"
+    }
   }
 }
