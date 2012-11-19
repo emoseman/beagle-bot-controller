@@ -10,7 +10,7 @@
 #include <linux/i2c.h>
 #include <linux/i2c-dev.h>
 
-JNIEXPORT jbyte JNICALL Java_I2CUtils_readByteFromI2CDevice(
+JNIEXPORT jbyte JNICALL Java_org_emoseman_utils_I2CUtils_readByteFromI2CDevice(
   JNIEnv *env, jobject obj, jstring path, jint device_address, jint register_address)
 {
   const char *cpath = (*env)->GetStringUTFChars(env, path, 0);
@@ -38,7 +38,7 @@ JNIEXPORT jbyte JNICALL Java_I2CUtils_readByteFromI2CDevice(
   return result;
 }
 
-JNIEXPORT jshort JNICALL Java_I2CUtils_readWordFromI2CDevice(
+JNIEXPORT jshort JNICALL Java_org_emoseman_utils_I2CUtils_readWordFromI2CDevice(
   JNIEnv *env, jobject obj, jstring path, jint device_address, jint register_address)
 {
   const char *cpath = (*env)->GetStringUTFChars(env, path, 0);
@@ -66,7 +66,7 @@ JNIEXPORT jshort JNICALL Java_I2CUtils_readWordFromI2CDevice(
   return result;
 }
 
-JNIEXPORT jbyte JNICALL Java_I2CUtils_writeByteToI2CDevice(
+JNIEXPORT jbyte JNICALL Java_org_emoseman_utils_I2CUtils_writeByteToI2CDevice(
   JNIEnv *env, jobject obj, jstring path, jint device_address, jint register_address, jint data)
 {
   const char *cpath = (*env)->GetStringUTFChars(env, path, 0);
@@ -94,7 +94,7 @@ JNIEXPORT jbyte JNICALL Java_I2CUtils_writeByteToI2CDevice(
   return result;
 }
 
-JNIEXPORT jshort JNICALL Java_I2CUtils_writeWordToI2CDevice(
+JNIEXPORT jshort JNICALL Java_org_emoseman_utils_I2CUtils_writeWordToI2CDevice(
   JNIEnv *env, jobject obj, jstring path, jint device_address, jint register_address, jint data)
 {
   const char *cpath = (*env)->GetStringUTFChars(env, path, 0);
